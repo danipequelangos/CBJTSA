@@ -1,6 +1,0 @@
-"0",""
-"0","set.seed(123)"
-"0","train_size <- round(NROW(ozone)*0.8)"
-"0","train_ind <- sample(seq(1:NROW(ozone)), size = train_size)"
-"0","ozoneTrain <- ozone[train_ind,]"
-"0","ozoneTest <- ozone[-train_ind,]"

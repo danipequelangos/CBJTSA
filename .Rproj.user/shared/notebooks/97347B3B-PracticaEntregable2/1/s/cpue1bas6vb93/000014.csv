@@ -1,4 +1,0 @@
-"0","ozone <- read.table(""ozone.dat"", header = T, sep = "" "", dec = ""."")"
-"0","ozone$NO2 <- log(ozone$NO2)"
-"0","ozone$NO <- log(ozone$NO)"
-"0","head(ozone)"

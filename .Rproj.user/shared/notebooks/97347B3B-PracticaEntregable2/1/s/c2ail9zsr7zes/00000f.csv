@@ -1,8 +1,0 @@
-"0","model2 <- svm(O3obs ~ ., data = ozoneTrain2, kernel = ""radial"", gamma = 0.01, cost = 10)"
-"0","pred2 <- predict(model2, ozoneTest2[,-2])"
-"0","error <- sum(pred2!=ozoneTest2$O3obs)/NROW(ozoneTest2)"
-"0","error"
-"1","[1]"
-"1"," 0.08653846"
-"1","
-"

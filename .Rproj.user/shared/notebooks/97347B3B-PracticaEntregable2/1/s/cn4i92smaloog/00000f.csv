@@ -1,5 +1,0 @@
-"0","ozoneTrain2 <- ozoneTrain"
-"0","ozoneTest2 <- ozoneTest"
-"0","ozoneTrain2$O3obs <- cut(ozoneTrain2$O3obs, breaks = c(0, 150, Inf), labels = c(""bajo"", ""alto""))"
-"0","ozoneTest2$O3obs <- cut(ozoneTest2$O3obs, breaks = c(0, 150, Inf), labels = c(""bajo"", ""alto""))"
-"0","head(ozoneTrain2)"

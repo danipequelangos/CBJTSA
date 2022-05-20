@@ -1,8 +1,0 @@
-"0","model1 <- svm(O3obs ~ ., data = ozoneTrain, kernel = ""radial"", gamma = 0.01, cost = 100)"
-"0","pred1 <- predict(model1, ozoneTest[,-2])"
-"0","ECM <- sum((pred1-ozoneTest$O3obs)^2)/NROW(ozoneTest)"
-"0","ECM"
-"1","[1]"
-"1"," 629.5346"
-"1","
-"
