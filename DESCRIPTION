@@ -3,7 +3,7 @@ Type: Package
 Title: Complete Box Jenkins Time Series Analysis
 Version: 1.0
 Description: Methods and tools for displaying, analysing and fitting univariate time series with Box Jenkins ARIMA models.
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Imports: 
     stats,
     ggplot2,
