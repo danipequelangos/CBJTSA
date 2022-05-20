@@ -1,0 +1,91 @@
+library(haven)
+
+#Para instalar la librería a partir del archivo
+install.packages("CBJTSA_1.0.zip", repos = NULL, type = "source")
+
+library(CBJTSA)
+#Cargamos los datos
+electric<-as.matrix(read_sas("electric.sas7bdat"))
+#Me invento los tiempos para mostrar como funciona dateSeq y hacer los plots bien
+?dateSeq
+dates <- dateSeq(from = "2010-01", length.out = length(electric), by = "month")
+dates
+
+####Fase de Identificacion####
+#Grafica de la serie
+?tsplot
+tsplot(dates, electric, n.unlabel = 4)
+
+#Grafica rango-media
+?rmplot
+rmplot(electric, n = 12)
+
+#Grafica Acf 
+?CBJTSA::Acf
+Acf(electric, lag.max = 24, main = "ACF")
+
+#Grafica Pacf
+?CBJTSA::Pacf
+Pacf(electric, lag.max = 24, main = "PACF")
+
+#Preiodograma de la serie
+?tsspec
+tsspec(electric)
+
+#Si queremos diferenciar la serie podemos usar la funcion diff
+?base::diff 
+#no lo añado a mi libreria porque esta por defecto en R y no puedo importar a mi 
+#libreria si ya esta por defecto
+
+#Diferenciacion regular
+electricDiff1 <- diff(electric, differences = 1)
+tsspec(electricDiff1)
+
+#Diferenciacion estacional
+electricDiff12 <- diff(electric, lag=12)
+tsspec(electricDiff12)
+
+#Para esta serie se ve mejor el periodograma si quito las 3 ultimas observaciones 
+#para que tenga observaciones multiplo de 12
+tsspec(electric[1:96])
+
+electricDiff1 <- diff(electric[1:96], differences = 1)
+tsspec(electricDiff1)
+
+#Simulación de ARIMA
+dates2 <- dateSeq(from = time(AirPassengers)[1], to = time(AirPassengers)[length(AirPassengers)], 
+                 by="month")
+?arimaSimComp
+arimaSim<-arimaSimComp(dates2, sample = log(AirPassengers), order = c(0, 1, 1), seasonal = c(0, 1, 1),
+                ma = c(-0.4), period = 12, sma = c(-0.6))
+
+####Fase de Estimacion y Validacion####
+?CArima
+model1 <- CArima(electric, order = c(0, 1, 1), seasonal = list(order=c(1,0,0), period = 12), include.constant = T)
+model1 #para ver lo general
+#para imprimir el resto de datos y tests plot=F hace que no se reimpriman los grafico de nuevo
+summary(model1, plot=F) 
+
+model2 <- CArima(electric, order = c(1, 0, 1), seasonal = list(order=c(1,1,0), period = 12), include.constant = T)
+model2
+summary(model2, plot=F)
+
+model3 <- CArima(electric, order = c(1, 0, 0), seasonal = list(order=c(1,1,1), period = 12), include.constant = T)
+model3
+summary(model3, plot=F)
+####Fase de Comparacion####
+#Esta función hace varios calculos de analisis de la capacidad predictiva de un modelo
+?predCap
+predCapModel <- predCap(electric, h = 12, model1, dates, plot = F) 
+predCapModel
+
+#Para realizar la comparacion entre dos modelos
+?compareARIMA
+comp <- compareARIMA(electric, dates, model1, model2, model3, h = 12, plot = F)
+comp
+
+####Fase de Prediccion####
+?Cforecast
+predModel <- Cforecast(electric, model = model2, h = 24, dates = dates, plot = F) 
+predModel
+summary(predModel)

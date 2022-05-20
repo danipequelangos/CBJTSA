@@ -1,0 +1,20 @@
+"0","tunning4 <- tune.svm(O3obs ~ ., data = ozoneTrain2, kernel = ""linear"", degree = c(2,3), cost = 10^(1:3), "
+"0","                    tunecontrol = tune.control(cross = 5))"
+"0","summary(tunning4)"
+"1","
+Parameter tuning of "
+"1",""
+"1","‘svm’"
+"1",""
+"1",":
+
+"
+"1","- sampling method:"
+"1"," "
+"1","5-fold cross validation"
+"1"," "
+"1","
+
+"
+"1","- best parameters:
+"
