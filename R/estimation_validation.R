@@ -237,7 +237,7 @@ summary.CArima <- function(x, plot = T){
   }
   lag.max <- x$period*round((length(x$residuals)/4)/x$period)
   acftmp <- Acf(x$residuals, lag.max = lag.max, main = "Residual ACF", plot = plot)
-  pacftmp <- Pacf(x$residuals, lag.max = lag.max, main = "Residual ACF", plot = plot)
+  pacftmp <- Pacf(x$residuals, lag.max = lag.max, main = "Residual PACF", plot = plot)
   
   if(plot){
     suppressMessages(grid.arrange(x$lbtests.plot, x$residRM, nrow = 2))
