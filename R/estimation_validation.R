@@ -117,8 +117,8 @@ CArima <- function(y, order=c(0, 0, 0), seasonal=c(0, 0, 0),plot = T, xreg=NULL,
   #Ljung-Box tests for the residuals
   lb.df <- data.frame(Lag = c(), ChiSq = c(), DF = c(), pval = c())
   
-  if(dim(tmp$coef)[1] > 6){
-    lbFirstLag <- dim(tmp$coef)[1]
+  if(dim(tmp$coef)[1] >= 6){
+    lbFirstLag <- dim(tmp$coef)[1]+1
   }
   else{
     lbFirstLag <- 6
