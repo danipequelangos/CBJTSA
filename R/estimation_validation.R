@@ -117,7 +117,13 @@ CArima <- function(y, order=c(0, 0, 0), seasonal=c(0, 0, 0),plot = T, xreg=NULL,
   #Ljung-Box tests for the residuals
   lb.df <- data.frame(Lag = c(), ChiSq = c(), DF = c(), pval = c())
   
-  for(i in seq(from = 6, to = round(length(tmp$x)/4)+period, by = 6)){
+  if(dim(temp$coef)[1] > 6){
+    lbFirstLag <- dim(temp$coef)[1]
+  }
+  else{
+    lbFirstLag <- 6
+  }
+  for(i in seq(from = lbFirstLag, to = round(length(tmp$x)/4)+period, by = lbFirstLag)){
     lbtest <- LB.test(tmp, type = "Ljung-Box", lag=i)
     lb.df <- rbind(lb.df, c(lbtest$lag, lbtest$statistic, lbtest$parameter, lbtest$p.value))
   }
